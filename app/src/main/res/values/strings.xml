@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Insta Clone</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="logincaption">Already have an account? <b>Log in</b></string>
+    <string name="signupcaption">Don\'t have an account? <b>Sign up</b></string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+</resources>

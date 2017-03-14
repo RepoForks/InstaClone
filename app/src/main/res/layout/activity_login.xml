@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e4405f"
+    tools:context="com.app.infideap.instaclone.LoginActivity">
+
+    <FrameLayout
+        android:layout_above="@+id/layout_cert_action"
+        android:id="@+id/container_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/layout_cert_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="#3fff" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1fff"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/fab_margin">
+
+            <com.app.infideap.stylishwidget.view.ATextView
+                android:id="@+id/textView_cert_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/logincaption"
+                android:textSize="12sp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="#bfff" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
