@@ -3,12 +3,20 @@ package com.app.infideap.instaclone;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 /**
@@ -22,11 +30,19 @@ import android.view.ViewGroup;
 public class SignupFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = SignupFragment.class.getSimpleName();
 
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private View signup1Layout;
+    private View signup2Layout;
+
+    private EditText emailEditText;
+    private EditText passwordEditText;
+    private EditText fullnameEditText;
+    private String regexEmail = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
 
     public SignupFragment() {
         // Required empty public constructor
@@ -69,6 +85,57 @@ public class SignupFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        signup1Layout = view.findViewById(R.id.layout_signup_1);
+        signup2Layout = view.findViewById(R.id.layout_signup_2);
+        signup1Layout.setVisibility(View.VISIBLE);
+        signup2Layout.setVisibility(View.GONE);
+
+        emailEditText = (EditText) view.findViewById(R.id.editText_email);
+        passwordEditText = (EditText) view.findViewById(R.id.editText_password);
+        fullnameEditText = (EditText) view.findViewById(R.id.editText_fullname);
+        view.findViewById(R.id.button_next).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                String email = emailEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
+                String fullname = fullnameEditText.getText().toString();
+                // if first layout is visible, second layout will display
+                if (signup1Layout.getVisibility() == View.VISIBLE) {
+                    if (email.matches(regexEmail)) {
+                        signup1Layout.setVisibility(View.GONE);
+                        signup2Layout.setVisibility(View.VISIBLE);
+                    }else{
+                        Snackbar.make(v, "Invalid e-mail.",Snackbar.LENGTH_LONG).show();
+                    }
+                }
+                // othewise, do signup function to firebase
+                else if (password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")){
+                    //TODO : here put code for signup
+
+                    FirebaseAuth.getInstance()
+                            .createUserWithEmailAndPassword(email,password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.getException()!=null)
+                                        task.getException().printStackTrace();
+                                    if (task.isSuccessful()){
+                                        task.getResult().getUser().sendEmailVerification();
+                                        mListener.onSignUpSuccess();
+                                    }else{
+                                        Snackbar.make(v, "Registration failed.",Snackbar.LENGTH_LONG).show();
+
+                                    }
+                                }
+                            });
+                }
+                else{
+                    Snackbar.make(v, "Invalid password.",Snackbar.LENGTH_LONG).show();
+                }
+
+            }
+        });
     }
 
 
@@ -89,6 +156,18 @@ public class SignupFragment extends Fragment {
         mListener = null;
     }
 
+    // true if second layout visible
+    public boolean canGoBack() {
+        Log.e(TAG, "Equal : " + (signup2Layout.getVisibility() == View.VISIBLE));
+
+        return signup2Layout.getVisibility() == View.VISIBLE;
+    }
+
+    public void back() {
+        signup2Layout.setVisibility(View.GONE);
+        signup1Layout.setVisibility(View.VISIBLE);
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -102,5 +181,7 @@ public class SignupFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+
+        void onSignUpSuccess();
     }
 }

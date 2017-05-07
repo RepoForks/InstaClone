@@ -22,31 +22,38 @@
         <android.support.v4.widget.Space
             android:layout_width="wrap_content"
             android:layout_height="16dp" />
+
         <com.app.infideap.stylishwidget.view.AEditText
+            android:id="@+id/editText_email"
             style="@style/EditText.RoundBorder.Transparent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#bfff"
-            android:hint="@string/email" />
+            android:hint="@string/email"
+            android:textColorHint="#bfff" />
+
         <android.support.v4.widget.Space
             android:layout_width="wrap_content"
             android:layout_height="10dp" />
+
         <com.app.infideap.stylishwidget.view.AEditText
+            android:id="@+id/editText_password"
             style="@style/EditText.RoundBorder.Transparent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#bfff"
-            android:hint="@string/password" />
+            android:hint="@string/password"
+            android:textColorHint="#bfff" />
 
         <android.support.v4.widget.Space
             android:layout_width="wrap_content"
             android:layout_height="16dp" />
+
         <com.app.infideap.stylishwidget.view.AButton
             style="@style/Button.Default.Outline"
+            android:id="@+id/button_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#bfff"
-            android:hint="@string/password" />
+            android:hint="@string/login"
+            android:textColorHint="#bfff" />
 
     </LinearLayout>
 

@@ -1,18 +1,22 @@
 package com.app.infideap.instaclone;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 public class LoginActivity extends AppCompatActivity implements
         SignupFragment.OnFragmentInteractionListener,
-        LoginFragment.OnFragmentInteractionListener{
+        LoginFragment.OnFragmentInteractionListener {
 
     private static final Object LOGIN = 1;
     private static final Object SIGNUP = 2;
+    private Fragment fragment;
+    private String TAG = LoginActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +33,22 @@ public class LoginActivity extends AppCompatActivity implements
                 if (textView.getTag().equals(LOGIN)) {
                     textView.setText(R.string.signupcaption);
                     textView.setTag(SIGNUP);
-                    displayFragment(R.id.container_login, LoginFragment.newInstance(null, null));
+                    fragment = LoginFragment.newInstance(null, null);
+                    displayFragment(R.id.container_login, fragment);
 
                 } else {
                     textView.setText(R.string.logincaption);
                     textView.setTag(LOGIN);
-                    displayFragment(R.id.container_login, SignupFragment.newInstance(null, null));
+                    fragment = SignupFragment.newInstance(null, null);
+                    displayFragment(R.id.container_login, fragment);
                 }
+
+                Log.e(TAG, "Equal : "+(fragment instanceof SignupFragment));
+
             }
         });
-        displayFragment(R.id.container_login, SignupFragment.newInstance(null, null));
+        fragment = SignupFragment.newInstance(null, null);
+        displayFragment(R.id.container_login, fragment);
     }
 
     private void displayFragment(int id, Fragment fragment) {
@@ -51,4 +61,37 @@ public class LoginActivity extends AppCompatActivity implements
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+    @Override
+    public void onLogInSuccss(View v) {
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+    }
+
+    /**
+     * Method need to trigger after sign up process complete.
+     */
+    @Override
+    public void onSignUpSuccess() {
+        fragment = LoginFragment.newInstance(null,null);
+        displayFragment(R.id.container_login, fragment);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.e(TAG, "Equal : "+(fragment instanceof SignupFragment));
+        if (fragment instanceof SignupFragment) {
+            SignupFragment signupFragment = (SignupFragment) fragment;
+            if (signupFragment.canGoBack()) {
+                signupFragment.back();
+                return;
+            }
+        }
+        super.onBackPressed();
+    }
+
+
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//    }
 }

@@ -1,72 +1,144 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    tools:context="com.app.infideap.instaclone.SignupFragment"
+    android:background="@color/colorAccent">
 
     <LinearLayout
         android:padding="16dp"
+        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        tools:context="com.app.infideap.instaclone.SignupFragment">
-
-
-        <ImageView
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:src="@drawable/ic_user"
-            android:tint="@color/colorWhite" />
+        android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:id="@+id/layout_signup_1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="visible"
+            >
+
+
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:src="@drawable/ic_user"
+                android:tint="@color/colorWhite" />
+
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-                <com.app.infideap.stylishwidget.view.ATextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <com.app.infideap.stylishwidget.view.ATextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="16dp"
+                        android:text="@string/email"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorWhite"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorWhite" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.v4.widget.Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp" />
+
+                <com.app.infideap.stylishwidget.view.AEditText
+                    style="@style/EditText.RoundBorder.Transparent"
+                    android:id="@+id/editText_email"
                     android:layout_width="match_parent"
-                    android:text="@string/email"
-                    android:padding="16dp"
-                    android:textAllCaps="true"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorWhite"
-                    android:layout_height="wrap_content" />
-                <View
-                    android:background="@color/colorWhite"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email"
+                    android:textColorHint="@color/colorWhite" />
+
+
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
-            android:orientation="vertical"
+            android:visibility="gone"
+            android:id="@+id/layout_signup_2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:src="@drawable/ic_user"
+                android:tint="@color/colorWhite" />
+
             <android.support.v4.widget.Space
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="16dp" />
-            <com.app.infideap.stylishwidget.view.AEditText
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/email"
-                android:textColorHint="@color/colorWhite"
-                style="@style/EditText.RoundBorder.Transparent"/>
-            <android.support.v4.widget.Space
-                android:layout_width="wrap_content"
-                android:layout_height="16dp" />
-            <com.app.infideap.stylishwidget.view.AButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/email"
-                android:textColorHint="@color/colorWhite"
-                style="@style/Button.Default.Outline"/>
+                android:orientation="vertical">
+
+                <android.support.v4.widget.Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp" />
+
+                <com.app.infideap.stylishwidget.view.AEditText
+                    android:id="@+id/editText_fullname"
+                    style="@style/EditText.RoundBorder.Transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/fullname"
+                    android:textColorHint="@color/colorWhite" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="8dp" />
+
+                <com.app.infideap.stylishwidget.view.AEditText
+                    android:id="@+id/editText_password"
+                    style="@style/EditText.RoundBorder.Transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    android:textColorHint="@color/colorWhite" />
+
+
+            </LinearLayout>
         </LinearLayout>
+
+        <android.support.v4.widget.Space
+            android:layout_width="wrap_content"
+            android:layout_height="16dp" />
+
+        <com.app.infideap.stylishwidget.view.AButton
+            android:id="@+id/button_next"
+            style="@style/Button.Default.Outline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/next"
+            android:textColorHint="@color/colorWhite" />
     </LinearLayout>
 </FrameLayout>
